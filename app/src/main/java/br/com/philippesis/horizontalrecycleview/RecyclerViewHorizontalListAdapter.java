@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +17,10 @@ public class RecyclerViewHorizontalListAdapter extends
     Context context;
 
     public RecyclerViewHorizontalListAdapter(List<Grocery> horizontalGrocderyList, Context context){
-        this.horizontalGrocderyList= horizontalGrocderyList;
+
+        this.horizontalGrocderyList = horizontalGrocderyList;
         this.context = context;
+
     }
 
     @Override
@@ -34,7 +35,7 @@ public class RecyclerViewHorizontalListAdapter extends
     @Override
     public void onBindViewHolder(GroceryViewHolder holder, final int position) {
         holder.txtname.setText(horizontalGrocderyList.get(position).getProductName());
-        holder.txtdesc.setText(horizontalGrocderyList.get(position).getProductName());
+        holder.txtdesc.setText(horizontalGrocderyList.get(position).getProductDesc());
 
 //        holder.imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -56,9 +57,26 @@ public class RecyclerViewHorizontalListAdapter extends
         TextView txtdesc;
 
         public GroceryViewHolder(View view) {
+
             super(view);
             txtname=view.findViewById(R.id.id_product_1);
             txtdesc=view.findViewById(R.id.id_product_2);
+
+            view.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (horizontalGrocderyList.size() > 0) {
+
+                        Grocery grocery = horizontalGrocderyList.get(getLayoutPosition());
+                        Toast.makeText(context, "Produto selecionado: "+grocery.productName,
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+
+            });
+
         }
     }
 }
